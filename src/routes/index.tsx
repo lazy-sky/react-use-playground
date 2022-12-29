@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 
-import Home from './Home'
-import UseMountExample from './UseMountExample'
+import Home from 'routes/Home'
+import UseMountExample from 'routes/examples/UseMountExample'
+import UseUnmountExample from 'routes/examples/UseUnmountExample'
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/use-mount' element={<UseMountExample />} />
+        <Route path='/use-unmount' element={<UseUnmountExample />} />
       </Routes>
     </div>
   )
