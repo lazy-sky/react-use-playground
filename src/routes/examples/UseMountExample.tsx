@@ -5,6 +5,8 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
+  Divider,
   List,
   ListItem,
   ListItemButton,
@@ -12,6 +14,7 @@ import {
   Typography,
 } from '@mui/material'
 import { ExpandMore } from '@mui/icons-material'
+
 import Layout from 'components/Layout'
 
 import style from './common.module.scss'
@@ -46,12 +49,40 @@ const UseMountExample = () => {
 
   return (
     <Layout>
-      <h2>useMount</h2>
-      <div>
-        <div>설명</div>
-        <pre className={style.codeQuote}>useMount(fn: () =&gt; void)</pre>
-      </div>
-      <p>{message}</p>
+      <Typography variant='h2' align='center' gutterBottom>
+        useMount
+      </Typography>
+      <Divider />
+      <Box p={2} />
+      <Box>
+        <Typography variant='h4' paddingY={2}>
+          설명 및 예시
+        </Typography>
+        {/* TODO: 예시 코드 및 설명 텍스트 데이터 분리해서 관리 */}
+        <Typography paragraph mb={1}>
+          이 훅은 컴포넌트가 DOM에 마운트될 때 작업을 수행할 수 있게 해줍니다. 클래스 컴포넌트에서
+          <span className={style.codeQuote}>componentDidMount</span> 라이프사이클 메소드와 유사합니다.
+        </Typography>
+        <Typography paragraph mb={1}>
+          <span className={style.codeQuote}>useMount</span>는 함수를 인수로 받습니다. 이 함수는 컴포넌트가 마운트될 때
+          호출됩니다.
+          <span className={style.codeQuote}>useMount(fn: () =&gt; void)</span>
+        </Typography>
+        <Typography paragraph mb={1}>
+          이 함수는 컴포넌트가 마운트될 때 수행해야 할 작업, 예를 들어 API에서 데이터를 가져오거나 이벤트 리스너를
+          설정하는 것과 같은 작업을 할 수 있습니다.
+        </Typography>
+        <Typography paragraph mb={1}>
+          여기서 중요한 점은 <span className={style.codeQuote}>useMount</span>는 컴포넌트가 처음 마운트될 때만
+          호출된다는 것입니다. 컴포넌트가 업데이트될 때마다 작업을 수행해야 한다면{' '}
+          <span className={style.codeQuote}>useEffect</span> 훅을 사용해야 합니다.
+        </Typography>
+      </Box>
+
+      <Box>
+        <p>{message}</p>
+      </Box>
+
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMore />}>
           <Typography>코드 예제</Typography>
@@ -60,27 +91,31 @@ const UseMountExample = () => {
           <pre className={style.codeBlock}>{exampleCode}</pre>
         </AccordionDetails>
       </Accordion>
-      <div>
+
+      <Box>
         {/* TODO: 연관 Hooks 추가 */}
-        <div>연관 Hooks</div>
+        <Typography variant='h4' paddingY={2}>
+          연관 Hooks
+        </Typography>
         <List className={style.relatedList}>
-          <ListItem>
+          <ListItem disableGutters>
             <ListItemButton disableGutters>
               <Link to='/use-unmount'>
                 <ListItemText primary='useMount' />
               </Link>
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          <Divider />
+          <ListItem disableGutters>
             <ListItemButton disableGutters>
               <Link to='/use-lifecycles'>
                 <ListItemText primary='useLifecycles' />
               </Link>
             </ListItemButton>
           </ListItem>
+          <Divider />
         </List>
-        {/* TODO: 용례 */}
-      </div>
+      </Box>
     </Layout>
   )
 }
