@@ -24,7 +24,7 @@ import { useState } from 'react'
 import { useMount } from 'react-use'
 
 const UseMountExample = () => {
-  const [message, setMessage] = useState('바뀌는 걸 보기 위해 2초의 딜레이가 있습니다.')
+  const [message, setMessage] = useState('바뀌는 걸 보기 위해 1초의 딜레이가 있습니다.')
 
   useMount(() => {
     setTimeout(() => {
@@ -38,14 +38,30 @@ const UseMountExample = () => {
     </div>
   )`
 
-const UseMountExample = () => {
-  const [message, setMessage] = useState('바뀌는 걸 보기 위해 2초의 딜레이가 있습니다.')
+const Message = () => {
+  const [message, setMessage] = useState('1초 후에 메시지가 바뀝니다.')
+  const [isMounted, setIsMounted] = useState(false)
 
   useMount(() => {
     setTimeout(() => {
-      setMessage('마운트될 때 실행됩니다!')
-    }, 2000)
+      setMessage('메시지가 마운트되었습니다!')
+      setIsMounted(true)
+    }, 1000)
   })
+
+  return (
+    <Box textAlign='center' margin='normal' sx={{ m: 2, p: 4, border: `2px dotted ${isMounted ? 'red' : 'grey'}` }}>
+      <p style={{ fontSize: 32 }}>{message}</p>
+    </Box>
+  )
+}
+
+const UseMountExample = () => {
+  const [isMessageOpen, setIsMessageOpen] = useState(false)
+
+  const handleMessageToggle = () => {
+    setIsMessageOpen((prev) => !prev)
+  }
 
   return (
     <Layout>
@@ -80,7 +96,10 @@ const UseMountExample = () => {
       </Box>
 
       <Box>
-        <p>{message}</p>
+        <button type='button' onClick={handleMessageToggle}>
+          {!isMessageOpen ? 'Mount' : 'Unmount'}
+        </button>
+        {isMessageOpen && <Message />}
       </Box>
 
       <Accordion>
